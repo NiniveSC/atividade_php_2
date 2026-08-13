@@ -39,6 +39,17 @@ function contar_tamanho($senha) {
     return strlen($senha);
 }
 
+function contar_numeros($senha) {
+    $contador = 0;
+
+    for ($i = 0; $i < strlen($senha); $i++) {
+        if (ctype_digit($senha[$i])) {
+            $contador++;
+        }
+    }
+
+    return $contador;
+}
 
 function classificar_senha($tamanho, $maiusculas, $minusculas, $numeros, $caracteres) {
     if ($tamanho < 8) {
@@ -83,6 +94,7 @@ $senha = "Abc123@#";
 $maiusculas = contar_maiusculas($senha);
 $minusculas = contar_minusculas($senha);
 $caracteres = contar_caracteres($senha);
+$numeros = contar_numeros($senha);
 $tamanho = contar_tamanho($senha);
 
 echo "Senha: $senha <br>";
