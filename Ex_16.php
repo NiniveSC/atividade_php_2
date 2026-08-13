@@ -82,7 +82,6 @@ $senha = "Abc123@#";
 
 $maiusculas = contar_maiusculas($senha);
 $minusculas = contar_minusculas($senha);
-$numeros = contar_numeros($senha);
 $caracteres = contar_caracteres($senha);
 $tamanho = contar_tamanho($senha);
 
