@@ -84,5 +84,42 @@ function contar_palavras_repetidas($texto) {
  }
 
  function remover_espacos($texto) {
-    $texto
+    $texto = trim($texto);
+
+    return preg_replace('/\s+/', ' ', $texto);
+
  }
+
+ function formatar_texto($texto) {
+    return ucwords(strtolower($texto));
+ }
+
+ function processar_texto($texto) {
+    $caracteres = contar_caracteres($texto);
+    $palavras = contar_palavras($texto);
+    $frases = contar_frases($texto);
+    $maior = encontrar_maior_palavra($texto);
+    $menor = encontrar_menor_palavra($texto);
+    $repetidas =  contar_palavras_repetidas($texto);
+    $frequentes = cinco_palavras_frequentes($texto);
+    $sem_espacos = remover_espacos($texto);
+    $formatado = formatar_texto($texto);
+
+    return [
+        "Caracteres" => $caracteres,
+        "Palavras" => $palavras,
+        "Frases" => $frases,
+        "Palavra mais longa" => $maior,
+        "Palavra mais curta" => $menor,
+        "Palavras repetidas" => $repetidas,
+        "Palavras mais frequentes" => $frequentes,
+        "Texto sem espaços duplicados" => $sem_espacos,
+        "Texto formatado" => $formatado
+    ];
+ }
+
+ $texto = "A aluna chegou atrasada hoje, pois a aluna acordou atrasada.";
+
+ $resultado = processar_texto($texto);
+
+ echo 
