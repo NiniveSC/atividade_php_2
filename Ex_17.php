@@ -22,7 +22,7 @@ function contar_frases($texto) {
         }
     }
 
-    return $contador
+    return $contador;
 }
 
 function encontrar_maior_palavra($texto) {
@@ -74,7 +74,7 @@ function contar_palavras_repetidas($texto) {
 }
 
  function cinco_palavras_frequentes($texto) {
-    $palavras = explode(" ", strtolower(trim(texto)));
+    $palavras = explode(" ", strtolower(trim($texto)));
 
     $quantidades = array_count_values($palavras);
 
@@ -122,4 +122,18 @@ function contar_palavras_repetidas($texto) {
 
  $resultado = processar_texto($texto);
 
- echo 
+ echo "Caracteres: " . $resultado["Caracteres"] . "<br>";
+ echo "Palavras: " . $resultado["Palavras"] . "<br>";
+ echo "Frases" . $resultado["Frases"] . "<br>";
+ echo "Maior Palavra: " . $resultado ["Maior Palavra"] . "<br>";
+ echo "Menor Palavra: " . $resultado ["Menor Palavra"] . "<br>";
+ echo "Palavras Repetidas: " . $resultado["Palavras Repetidas"] . "<br>";
+
+ echo "Cinco palavras mais frequentes:<br>";
+
+ foreach($resultado["Cinco mais frequentes"] as $palavra => $quantidade){
+    echo $palavra . " - " . $quantidade . "<br>";
+ }
+
+echo "<br>Sem Espaços Duplicados: " . $resultado["Sem Espaços Duplicados"] . "<br>";
+echo "Texto Formatado: " . $resultado["Texto Formatado"];
