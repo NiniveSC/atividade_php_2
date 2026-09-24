@@ -1,139 +1,116 @@
-<?php 
+<?php
 
-function contar_caracteres($texto) {
+function contar_caracteres($texto){
     return strlen($texto);
 }
 
-function contar_palavras($texto) {
-    $texto = trim($texto);
-    $palavras = explode(" ", $texto);
-
+function contar_palavras($texto){
+    $texto=trim($texto);
+    $palavras=explode(" ",$texto);
     return count($palavras);
 }
 
-function contar_frases($texto) {
-    $frases = preg_split("/[.!?]+", $texto);
-
-    $contador = 0;
-
-    foreach ($frases as $frase){
-        if (trim($frase) != ""){
+function contar_frases($texto){
+    $frases=preg_split("/[.!?]+/",$texto);
+    $contador=0;
+    foreach($frases as $frase){
+        if(trim($frase)!=""){
             $contador++;
         }
     }
-
     return $contador;
 }
 
-function encontrar_maior_palavra($texto) {
-    $palavras = explode(" ", trim($texto));
-
-    $maior = "";
-
-    foreach ($palavras as $palavra) {
-        if (strlen($palavra) > strlen($maior)) {
-            $maior = $palavra;
+function encontrar_maior_palavra($texto){
+    $palavras=explode(" ",trim($texto));
+    $maior="";
+    foreach($palavras as $palavra){
+        if(strlen($palavra)>strlen($maior)){
+            $maior=$palavra;
         }
     }
-
     return $maior;
 }
 
-function encontrar_menor_palavra($texto) {
-    $palavras = explode(" ", trim($texto));
-
-    $menor = $palavras[0];
-
-    foreach ($palavras as $palavra) {
-
-        if (strlen($palavra) < strlen($menor)) {
-            $menor = $palavra;
+function encontrar_menor_palavra($texto){
+    $palavras=explode(" ",trim($texto));
+    $menor=$palavras[0];
+    foreach($palavras as $palavra){
+        if(strlen($palavra)<strlen($menor)){
+            $menor=$palavra;
         }
-
     }
-
     return $menor;
 }
 
-function contar_palavras_repetidas($texto) {
-    $palavras = explode(" ", strtolower(trim($texto)));
-
-    $quantidades = array_count_values($palavras);
-
-    $contador = 0;
-
-    foreach ($quantidades as $quantidade) {
-
-        if ($quantidade > 1) {
+function contar_palavras_repetidas($texto){
+    $palavras=explode(" ",strtolower(trim($texto)));
+    $quantidades=array_count_values($palavras);
+    $contador=0;
+    foreach($quantidades as $quantidade){
+        if($quantidade>1){
             $contador++;
         }
-
     }
-
     return $contador;
 }
 
- function cinco_palavras_frequentes($texto) {
-    $palavras = explode(" ", strtolower(trim($texto)));
-
-    $quantidades = array_count_values($palavras);
-
+function cinco_palavras_frequentes($texto){
+    $palavras=explode(" ",strtolower(trim($texto)));
+    $quantidades=array_count_values($palavras);
     arsort($quantidades);
+    return array_slice($quantidades,0,5,true);
+}
 
-    return array_slice($quantidades, 0,5, true);
- }
+function remover_espacos($texto){
+    $texto=trim($texto);
+    return preg_replace('/\s+/',' ',$texto);
+}
 
- function remover_espacos($texto) {
-    $texto = trim($texto);
-
-    return preg_replace('/\s+/', ' ', $texto);
-
- }
-
- function formatar_texto($texto) {
+function formatar_texto($texto){
     return ucwords(strtolower($texto));
- }
+}
 
- function processar_texto($texto) {
-    $caracteres = contar_caracteres($texto);
-    $palavras = contar_palavras($texto);
-    $frases = contar_frases($texto);
-    $maior = encontrar_maior_palavra($texto);
-    $menor = encontrar_menor_palavra($texto);
-    $repetidas =  contar_palavras_repetidas($texto);
-    $frequentes = cinco_palavras_frequentes($texto);
-    $sem_espacos = remover_espacos($texto);
-    $formatado = formatar_texto($texto);
+function processar_texto($texto){
+    $caracteres=contar_caracteres($texto);
+    $palavras=contar_palavras($texto);
+    $frases=contar_frases($texto);
+    $maior=encontrar_maior_palavra($texto);
+    $menor=encontrar_menor_palavra($texto);
+    $repetidas=contar_palavras_repetidas($texto);
+    $frequentes=cinco_palavras_frequentes($texto);
+    $sem_espacos=remover_espacos($texto);
+    $formatado=formatar_texto($texto);
 
     return [
-        "Caracteres" => $caracteres,
-        "Palavras" => $palavras,
-        "Frases" => $frases,
-        "Palavra mais longa" => $maior,
-        "Palavra mais curta" => $menor,
-        "Palavras repetidas" => $repetidas,
-        "Palavras mais frequentes" => $frequentes,
-        "Texto sem espaços duplicados" => $sem_espacos,
-        "Texto formatado" => $formatado
+        "Caracteres"=>$caracteres,
+        "Palavras"=>$palavras,
+        "Frases"=>$frases,
+        "Palavra mais longa"=>$maior,
+        "Palavra mais curta"=>$menor,
+        "Palavras repetidas"=>$repetidas,
+        "Palavras mais frequentes"=>$frequentes,
+        "Texto sem espaços duplicados"=>$sem_espacos,
+        "Texto formatado"=>$formatado
     ];
- }
+}
 
- $texto = "A aluna chegou atrasada hoje, pois a aluna acordou atrasada.";
+$texto="A aluna chegou atrasada hoje, pois a aluna acordou atrasada.";
+$resultado=processar_texto($texto);
 
- $resultado = processar_texto($texto);
+echo "Caracteres: ".$resultado["Caracteres"]."<br>";
+echo "Palavras: ".$resultado["Palavras"]."<br>";
+echo "Frases: ".$resultado["Frases"]."<br>";
+echo "Maior Palavra: ".$resultado["Palavra mais longa"]."<br>";
+echo "Menor Palavra: ".$resultado["Palavra mais curta"]."<br>";
+echo "Palavras Repetidas: ".$resultado["Palavras repetidas"]."<br>";
+echo "Cinco palavras mais frequentes:<br>";
 
- echo "Caracteres: " . $resultado["Caracteres"] . "<br>";
- echo "Palavras: " . $resultado["Palavras"] . "<br>";
- echo "Frases" . $resultado["Frases"] . "<br>";
- echo "Maior Palavra: " . $resultado ["Maior Palavra"] . "<br>";
- echo "Menor Palavra: " . $resultado ["Menor Palavra"] . "<br>";
- echo "Palavras Repetidas: " . $resultado["Palavras Repetidas"] . "<br>";
+foreach($resultado["Palavras mais frequentes"] as $palavra=>$quantidade){
+    echo $palavra." - ".$quantidade."<br>";
+}
 
- echo "Cinco palavras mais frequentes:<br>";
+echo "<br>Sem Espaços Duplicados: ".$resultado["Texto sem espaços duplicados"]."<br>";
+echo "Texto Formatado: ".$resultado["Texto formatado"];
 
- foreach($resultado["Cinco mais frequentes"] as $palavra => $quantidade){
-    echo $palavra . " - " . $quantidade . "<br>";
- }
-
-echo "<br>Sem Espaços Duplicados: " . $resultado["Sem Espaços Duplicados"] . "<br>";
-echo "Texto Formatado: " . $resultado["Texto Formatado"];
+?>
