@@ -16,7 +16,7 @@ function contar_especialidades($agenda){
     $especialidades = [];
     foreach($agenda as $consulta){
 
-        if(isset($especialidades[$conculta["especialidade"]])){
+        if(isset($especialidades[$consulta["especialidade"]])){
             $especialidades[$consulta["especialidade"]]++;
         }else{
             $especialidades[$consulta["especialidade"]] = 1;
@@ -25,7 +25,7 @@ function contar_especialidades($agenda){
     return $especialidades;
 }
 
-funcion ordenar_horarios($agenda){
+function ordenar_horarios($agenda){
     usort($agenda, function($a,$b){
         return strcmp($a["horario"], $b["horario"]);
     });
@@ -34,7 +34,7 @@ funcion ordenar_horarios($agenda){
 
 function pesquisar_pacientes($agenda,$nome){
     foreach($agenda as $consulta){
-        if($conculta["paciente"] == $nome){
+        if($consulta["paciente"] == $nome){
             return $consulta;
         }
     }
@@ -46,10 +46,10 @@ function horario_duplicado($agenda){
     $horarios = [];
 
     foreach($agenda as $consulta){
-        if(in_array($consulta["horario"], $hprarios)){
+        if(in_array($consulta["horario"], $horarios)){
             return "Sim";
         }
-        $hprarios[] = $consulta["horario"];
+        $horarios[] = $consulta["horario"];
     }
     return "Não";
 }
@@ -74,12 +74,12 @@ $agenda = [
     ["paciente"=>"Brayan","especialidade"=>"Ortopedia","data"=>"24/09/2026","horario"=>"12:00"],
     ["paciente"=>"Henrique","especialidade"=>"Pediatria","data"=>"24/09/2026","horario"=>"10:00"],
     ["paciente"=>"André","especialidade"=>"Cirurgião","data"=>"24/09/2026","horario"=>"08:00"]
-]
+];
 
 $resultado = organizar_agenda($agenda, "Nínive");
 
 echo "Total de consultas: " . $resultado["total"] . "<br><br>";
-echo "Pacientes diferentes: " . $resultados["pacientes"] . "<br><br>"; 
+echo "Pacientes diferentes: " . $resultado["pacientes"] . "<br><br>"; 
 echo "Consultas por especialidade:<br>";
 foreach($resultado["especialidades"] as $esp => $qtd){
     echo $esp . ": " . $qtd . "<br>";
